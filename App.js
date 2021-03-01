@@ -24,13 +24,21 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const App: () => React$Node = () => {
-  return (
-    <View >
-      <Text >Hello, World</Text>
-    </View>
-  );
-};
+import { MainContainer } from './containers';
+
+// const App: () => React$Node = () => {
+//   return (
+//     <MainContainer/>
+//   );
+// };
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <MainContainer/>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -71,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+// export default App;

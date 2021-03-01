@@ -10,7 +10,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "expo": "40.0.1",
     "react": "16.13.1",
+    "react-async-await": "1.5.0",
     "react-native": "0.63.4"
   },
   "devDependencies": {
