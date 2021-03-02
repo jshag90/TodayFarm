@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, StatusBar } from 'react-native';
 
 const Header = ({data}) => (
     <View style={styles.HeaderContainer}>
-        <Text style={styles.HeaderText}>오늘의 고추시세</Text>
+        <Text style={styles.HeaderText}>고추시세</Text>
         <Text style={styles.HeaderTextSub}>기준일 : {data.lastest_day}</Text>
     </View>
 )
