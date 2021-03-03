@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     HeaderTextSub: {
-        fontSize: 10,
+        fontSize: 15,
         fontWeight: 'bold',
         color: '#ffffff',
         textAlign: 'right'

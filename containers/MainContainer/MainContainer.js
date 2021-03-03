@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { Header, CardView } from '../../components'
+import ApiKeyInfo from '../api_key_info'
 
 export default class MainContainer extends React.Component {
   state = {
@@ -32,30 +33,43 @@ export default class MainContainer extends React.Component {
   }
 
   callPostData = async() => {
-    return fetch('https://www.kamis.or.kr/service/price/xml.do?action=dailySalesList&p_cert_key=test&p_cert_id=test&p_returntype=json')
+    return fetch(`https://www.kamis.or.kr/service/price/xml.do?action=dailySalesList&p_cert_key=${ApiKeyInfo.cert_key}&p_cert_id=${ApiKeyInfo.cert_id}&p_returntype=json`)
     .then(request => request.json())
     .catch(err => console.log(err))
   }
+
+  scrollToTop = () => {
+    this.scroller.scrollTo({x: 0, y: 0});
+  };
 
     render() {
       return (
 
 
-        <View style={styles.container}>
+        <View style={styles.container} >
           <Header style={styles.header} data={this.state.oneData} />
-          <ScrollView style={styles.cardContainer}>
+          <ScrollView style={styles.cardContainer}
+           ref={(scroller) => {this.scroller = scroller}}
+          >
           {this.state.data.map((data, index) => (
                     <CardView
                     data={data}
                     key={index}
                     />
           ))}
-          </ScrollView>
+          <TouchableOpacity
+          style={styles.button}
+          onPress={this.scrollToTop}
+          >
+           <Text  style={styles.to_top_text}>맨 위로</Text>
+          </TouchableOpacity>
+            </ScrollView>
         </View>
 
       );
     }
   }
+  
   
   const styles = StyleSheet.create({
     header: {
@@ -71,5 +85,14 @@ export default class MainContainer extends React.Component {
       flex: 1,
       flexDirection: 'column',
       width: '100%'
+    },
+    button:{
+      alignItems: "center",
+      backgroundColor: "#E70012",
+      padding: 10
+    },
+    to_top_text:{
+      color: '#FFFFFF',
+      fontWeight: 'bold'
     }
   });

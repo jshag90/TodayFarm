@@ -14,10 +14,10 @@ const CardView = ({data}) => (
                 source={getSourceByProductNo(data.productno)}/>
                 <Text style={getProductNameStyle(data.productName)}>{data.productName}</Text>
             </View>
-            <Text style={styles.CardContent}> &nbsp;&nbsp;{data.day1} : {data.dpr1}/{data.unit}</Text>
-            <Text style={styles.CardContent}> &nbsp;&nbsp;{data.day2} : {data.dpr2}/{data.unit}</Text>
-            <Text style={styles.CardContent}> &nbsp;&nbsp;{data.day3} : {data.dpr3}/{data.unit}</Text>
-            <Text style={styles.CardContent}> &nbsp;&nbsp;{data.day4} : {data.dpr4}/{data.unit}</Text>
+            <Text style={styles.CardContent}> {data.day1} : {data.dpr1}/{data.unit}</Text>
+            <Text style={styles.CardContent}> {data.day2} : {data.dpr2}/{data.unit}</Text>
+            <Text style={styles.CardContent}> {data.day3} : {data.dpr3}/{data.unit}</Text>
+            <Text style={styles.CardContent}> {data.day4} : {data.dpr4}/{data.unit}</Text>
             <Text style={getProductClsNameStyle(data.product_cls_name)}> &nbsp;{data.product_cls_name}</Text>
         </View>
 
@@ -71,8 +71,9 @@ const styles = StyleSheet.create({
     CardContent: {
         width: '100%',
         fontWeight: 'bold',
-        fontSize: 15,
-        padding: 2
+        fontSize: 17,
+        padding: 2,
+        paddingLeft: 70
     },
     CardTailCls: {
         width: '100%',
