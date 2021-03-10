@@ -14,7 +14,10 @@ import {
   View,
   Text,
   StatusBar,
+  Button
 } from 'react-native';
+import { colors } from 'react-native-elements';
+
 
 import {
   Header,
@@ -24,20 +27,53 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { MainContainer } from './containers';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
+import { HomeContainer, BigStoreContainer, SmallStoreContainer } from './containers';
 // const App: () => React$Node = () => {
 //   return (
 //     <MainContainer/>
 //   );
 // };
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <MainContainer/>
-    );
+const RootStack = createStackNavigator(
+  {
+    Home: {screen : HomeContainer,
+      navigationOptions: () => ({
+        title: `▷ 고추시세`,
+        headerStyle: styles.headerTitle,
+        headerTintColor: colors.white
+      }),
+    },
+    BigStore: {screen : BigStoreContainer,
+      navigationOptions: () => ({
+        title: `뒤로가기`,
+        headerStyle: styles.headerTitle,
+        headerTintColor: colors.white
+      }),
+    },
+    SmallStore: {screen : SmallStoreContainer,
+      navigationOptions: () => ({
+        title: `뒤로가기`,
+        headerStyle: styles.headerTitle,
+        headerTintColor: colors.white
+      }),
+    }
+  },
+  {
+    initialRouteName: 'Home',
   }
+  
+);
+
+const AppContainer = createAppContainer(RootStack);
+export default class App extends React.Component {
+
+  render() {
+    return <AppContainer />;
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -77,6 +113,7 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     textAlign: 'right',
   },
+  headerTitle: {
+    backgroundColor: "#E70012",
+  }
 });
-
-// export default App;

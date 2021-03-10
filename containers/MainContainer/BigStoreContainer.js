@@ -1,15 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert, Button } from 'react-native';
 import { Header, CardView } from '../../components'
 import ApiKeyInfo from '../api_key_info'
 
-export default class MainContainer extends React.Component {
+export default class BigStoreContainer extends React.Component {
+
   state = {
     data: [],
     oneData: [],
-    isLoading: false
+    isLoading: false,
+    scrollYAxis: 0
   }
-
+  
   componentDidMount(){
     this.getPostData();
   }
@@ -18,17 +20,21 @@ export default class MainContainer extends React.Component {
     const data = await this.callPostData();
     const dataPrice = data.price;
     const customPriceList = [];
+    const yAxis = 0;
     //고추 관련 가격 정보만
     const redPepperProductNoList = ['341', '345', '349', '351', '353', '355', '1580','81', '85', '90','92', '94', '96'];
     for(let i=0; i <dataPrice.length; i++ ){
-      if(redPepperProductNoList.indexOf(dataPrice[i].productno) != -1)
+      if(redPepperProductNoList.indexOf(dataPrice[i].productno) != -1 && 
+      dataPrice[i].product_cls_code == '02'){
         customPriceList.push(dataPrice[i]);
+      }
     }
 
     this.setState({
       data: customPriceList,
       oneData: customPriceList[0],
-      isLoading: true
+      isLoading: true,
+      scrollYAxis: yAxis
     })
   }
 
@@ -43,27 +49,28 @@ export default class MainContainer extends React.Component {
   };
 
     render() {
+      
+
       return (
-
-
         <View style={styles.container} >
-          <Header style={styles.header} data={this.state.oneData} />
+          <Header style={styles.header} data={this.state.oneData} title='도매시세' />
           <ScrollView style={styles.cardContainer}
            ref={(scroller) => {this.scroller = scroller}}
-          >
-          {this.state.data.map((data, index) => (
-                    <CardView
-                    data={data}
-                    key={index}
-                    />
-          ))}
-          <TouchableOpacity
-          style={styles.button}
-          onPress={this.scrollToTop}
-          >
-           <Text  style={styles.to_top_text}>맨 위로</Text>
-          </TouchableOpacity>
-            </ScrollView>
+           >
+            {this.state.data.map((data, index) => (
+
+                      <CardView
+                        data={data}
+                        key={index}
+                      />
+            ))}
+              <TouchableOpacity
+              style={styles.button}
+              onPress={this.scrollToTop}
+              >
+              <Text style={styles.to_top_text}>맨 위로</Text>
+              </TouchableOpacity>
+          </ScrollView>
         </View>
 
       );
@@ -77,9 +84,12 @@ export default class MainContainer extends React.Component {
     },
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#FFFFFF',
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    subheader: {
+      flex: 1
     },
     cardContainer: {
       flex: 1,
@@ -94,5 +104,17 @@ export default class MainContainer extends React.Component {
     to_top_text:{
       color: '#FFFFFF',
       fontWeight: 'bold'
+    },
+    smallStore:{
+      backgroundColor: 'red',
+    },
+    bigStory:{
+      backgroundColor: 'red',
+    },
+    fontStyle:{
+      alignSelf:'center',
+      fontSize: 17,
+      fontWeight: 'bold',
+      color: '#ffffff',
     }
   });

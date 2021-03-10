@@ -1,0 +1,2 @@
+keytool -genkey -v -keystore redpepper.keystore -alias redpepper -keyalg RSA -keysize 2048 -validity 10000
+패스워드 : redpepper

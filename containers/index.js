@@ -1,5 +1,9 @@
-import MainContainer from './MainContainer/MainContainer'
+import BigStoreContainer from './MainContainer/BigStoreContainer'
+import SmallStoreContainer from  './MainContainer/SmallStoreContainer'
+import HomeContainer from './HomeContainer'
 
 export {
-    MainContainer
+    BigStoreContainer,
+    SmallStoreContainer,
+    HomeContainer
 }
