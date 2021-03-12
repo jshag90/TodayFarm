@@ -4,7 +4,8 @@ import { StyleSheet, Text, View, StatusBar } from 'react-native';
 const Header = ({data, title}) => (
     <View style={styles.HeaderContainer}>
         <Text style={styles.HeaderText}>{title}</Text>
-        <Text style={styles.HeaderTextSub}>기준일 : {data.lastest_day}</Text>
+        <Text style={styles.HeaderTextSub}>가격 조사일 : {data.lastest_day}</Text>
+        <Text style={styles.HeaderTextSub}>* % : 1일전 대비 등락율</Text>
     </View>
 )
 

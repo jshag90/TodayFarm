@@ -8,10 +8,8 @@ export default class SmallStoreContainer extends React.Component {
   state = {
     data: [],
     oneData: [],
-    isLoading: false,
-    scrollYAxis: 0
+    isLoading: false
   }
-
   
   componentDidMount(){
     this.getPostData();
@@ -21,21 +19,20 @@ export default class SmallStoreContainer extends React.Component {
     const data = await this.callPostData();
     const dataPrice = data.price;
     const customPriceList = [];
-    const yAxis = 0;
+
     //고추 관련 가격 정보만
     const redPepperProductNoList = ['341', '345', '349', '351', '353', '355', '1580','81', '85', '90','92', '94', '96'];
     for(let i=0; i <dataPrice.length; i++ ){
       if(redPepperProductNoList.indexOf(dataPrice[i].productno) != -1 && 
-      dataPrice[i].product_cls_code == '01'){
-        customPriceList.push(dataPrice[i]);
+         dataPrice[i].product_cls_code == '01'){ //소매
+          customPriceList.push(dataPrice[i]);
       }
     }
 
     this.setState({
       data: customPriceList,
       oneData: customPriceList[0],
-      isLoading: true,
-      scrollYAxis: yAxis
+      isLoading: true
     })
   }
 
@@ -49,38 +46,29 @@ export default class SmallStoreContainer extends React.Component {
     this.scroller.scrollTo({x: 0, y: 0});
   };
 
-  scrollToLocation = () => {
-    this.scroller.scrollTo({x: 0, y: 1900});
-  };
-
-  // setScrollYAxis = (yaxis) => {
-  //     Alert.alert('Right button pressed');
-  //   this.setState(prevState => ({
-  //     scrollYAxis: yaxis
-  //   }));
-  // }
-
     render() {
-      
 
       return (
         <View style={styles.container} >
-           <Header style={styles.header} data={this.state.oneData} title='소매시세' />
-          <ScrollView style={styles.cardContainer}
-           ref={(scroller) => {this.scroller = scroller}}
+          <Header style={styles.header} data={this.state.oneData} title='소매시세' />
+          <ScrollView 
+              style={styles.cardContainer}
+              ref={(scroller) => {this.scroller = scroller}}
            >
-            {this.state.data.map((data, index) => (
+                {this.state.data.map((data, index) => (
 
-                      <CardView
-                        data={data}
-                        key={index}
-                      />
-            ))}
-              <TouchableOpacity
-              style={styles.button}
-              onPress={this.scrollToTop}
-              >
-              <Text style={styles.to_top_text}>맨 위로</Text>
+                          <CardView
+                            data={data}
+                            key={index}
+                          />
+
+                ))}
+
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={this.scrollToTop}
+                >
+                  <Text style={styles.to_top_text}>맨 위로</Text>
               </TouchableOpacity>
           </ScrollView>
         </View>
@@ -88,7 +76,6 @@ export default class SmallStoreContainer extends React.Component {
       );
     }
   }
-  
   
   const styles = StyleSheet.create({
     header: {
